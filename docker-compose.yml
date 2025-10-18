@@ -1,0 +1,20 @@
+services:
+  api:
+    build: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=AppDb;User Id=SA;Password=Fitness32_;
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "Fitness32_"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - dbdata:/var/opt/mssql
+
+volumes:
+  dbdata:
